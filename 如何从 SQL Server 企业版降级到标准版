@@ -1,0 +1,23 @@
+*Warning: Irreparable database damage can occur. This procedure should only be performed by users familiar with SQL Server Management Studio. Databases should be backed up prior to performing this procedure.* 
+
+1) Create Database Backups of ION_Data, ION_Network, ApplicationModules.
+2) Check the current version of SQL and build number. To view this information launch SQL Management Studio and execute the following command: SELECT @@Version
+3) Execute the following script in new query to determine location of database files:
+
+       SELECT name, physical_name AS current_file_location
+       FROM sys.master_files
+ 
+4) Create copies (mdf and ldf files) of the system database master, model and msdb. The location of these files can be obtained from the previous step. To make copies of the files, Shutdown the SQL Server service and copy the files to another location as these will be used later.
+5) Uninstall SQL Server from Control Panel the following components:
+    - SQL Instance
+    - SQL Server Integrations Services
+    - SQL Server Analysis Service
+    - SQL Reporting Services
+    - SQL Data Tools if installed
+6) SQL Server Management Studio, Client Tools and Connectivity do not require to be uninstalled as they are Shared Components.
+7) Reboot the server after uninstall is complete. When server comes back after the reboot navigate to the SQL database file location found in step 3 and confirm the system databases do not exist. The copies made in step 4 will be used once we have installed SQL Standard Edition.
+8) Install SQL Standard Edition making sure the Instance name remains the same and the Data directories point to the same location as in step 3.
+9) When SQL Server is installed, open SQL Management Studio and confirm the new installed instance version using command in step 3.
+10) If there are any patches to be applied to the SQL server then complete before continuing.
+11) Shutdown the SQL Service and copy the System Database from step 4 to the correct location and replace the files created by the new installation.
+12) Start SQL Service and verify PME operation.
