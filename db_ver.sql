@@ -20,3 +20,17 @@ Use the following table to identify your version:
     
     
 https://docs.microsoft.com/zh-CN/troubleshoot/sql/general/determine-version-edition-update-level
+
+
+--- Execute Against the Master Database
+SELECT CASE WHEN CHARINDEX('64', CAST(SERVERPROPERTY('Edition') AS
+VARCHAR(100))) > 0
+THEN 64
+ELSE 32
+END;
+
+select @@version
+
+Example output: 
+Microsoft SQL Server 2008 R2 (SP1) - 10.50.2550.0 (X64)   Jun 11 2012 16:41:53   Copyright (c) Microsoft Corporation  Standard Edition (64-bit) on Windows NT 6.1 (Build 7601: Service Pack 1) 
+
